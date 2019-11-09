@@ -21,8 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SignUpUniversityActivity extends AppCompatActivity {
-    private EditText name_edt,affiliated_edt,address_edt,phone_edt,email_edt,password_edt,retype_edt;
+public class SignUpStudentActivity extends AppCompatActivity {
+    private EditText name_edt,enrollment_edt,address_edt,phone_edt,email_edt,password_edt,retype_edt,university_edt;
     private Button regsiter_btn;
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
@@ -30,15 +30,16 @@ public class SignUpUniversityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up_university);
-        name_edt=(EditText)findViewById(R.id.name_university_signup);
-        affiliated_edt=(EditText)findViewById(R.id.affiliated_number_signup_university);
-        address_edt=(EditText)findViewById(R.id.address_signup_university);
-        phone_edt=(EditText)findViewById(R.id.phone_number_signup_university);
-        email_edt=(EditText)findViewById(R.id.email_signup_university);
-        password_edt=(EditText)findViewById(R.id.password_signup_university);
-        retype_edt=(EditText)findViewById(R.id.retype_signup_university);
-        regsiter_btn=(Button)findViewById(R.id.register_signup_university);
+        setContentView(R.layout.activity_sign_up_student);
+        name_edt=(EditText)findViewById(R.id.name_student_signup);
+        enrollment_edt=(EditText)findViewById(R.id.enrollemnt_number_signup_student);
+        address_edt=(EditText)findViewById(R.id.address_signup_student);
+        phone_edt=(EditText)findViewById(R.id.phone_number_signup_student);
+        email_edt=(EditText)findViewById(R.id.email_signup_student);
+        password_edt=(EditText)findViewById(R.id.password_signup_student);
+        retype_edt=(EditText)findViewById(R.id.password_signup_student);
+        regsiter_btn=(Button)findViewById(R.id.register_signup_student);
+        university_edt=(EditText)findViewById(R.id.university_name_student_signup);
         mAuth=FirebaseAuth.getInstance();
         db=FirebaseDatabase.getInstance().getReference();
         progressDialog=new ProgressDialog(this);
@@ -48,23 +49,23 @@ public class SignUpUniversityActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String name=name_edt.getText().toString();
-                String affiliatedno=affiliated_edt.getText().toString();
+                String enrollmentno=enrollment_edt.getText().toString();
                 String addreess=address_edt.getText().toString();
                 String phone=phone_edt.getText().toString();
                 String email=email_edt.getText().toString();
                 String passowrd=password_edt.getText().toString();
                 String retype=retype_edt.getText().toString();
-                register(name,affiliatedno,addreess,phone,email,passowrd,retype);
+                String university=university_edt.getText().toString();
+                register(name,enrollmentno,university,addreess,phone,email,passowrd,retype);
             }
         });
     }
-
-    private void register(final String name, final String affiliatedno, final String addreess, final String phone, final String email, String password, String retype) {
-        if(TextUtils.isEmpty(name) || TextUtils.isEmpty(affiliatedno)|| TextUtils.isEmpty(addreess)||TextUtils.isEmpty(phone)||TextUtils.isEmpty(email)||TextUtils.isEmpty(password)||TextUtils.isEmpty(retype)){
-            Toast.makeText(SignUpUniversityActivity.this,"Please fill all the required fields",Toast.LENGTH_LONG).show();
+    private void register(final String name, final String enrollemntno,final String university, final String addreess, final String phone, final String email, String password, String retype) {
+        if(TextUtils.isEmpty(name) || TextUtils.isEmpty(enrollemntno)||TextUtils.isEmpty(university)|| TextUtils.isEmpty(addreess)||TextUtils.isEmpty(phone)||TextUtils.isEmpty(email)||TextUtils.isEmpty(password)||TextUtils.isEmpty(retype)){
+            Toast.makeText(SignUpStudentActivity.this,"Please fill all the required fields",Toast.LENGTH_LONG).show();
         }
         else if(!password.equalsIgnoreCase(retype)){
-            Toast.makeText(SignUpUniversityActivity.this,"Passwords does not match",Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUpStudentActivity.this,"Passwords does not match",Toast.LENGTH_LONG).show();
         }
         else {
             progressDialog.show();
@@ -72,21 +73,22 @@ public class SignUpUniversityActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(SignUpUniversityActivity.this,"aaa",Toast.LENGTH_LONG).show();
+                        Toast.makeText(SignUpStudentActivity.this,"aaa",Toast.LENGTH_LONG).show();
                         Map<String,String> map=new HashMap<>();
                         map.put("name",name);
-                        map.put("affiliated number",affiliatedno);
+                        map.put("enrollment number",enrollemntno);
                         map.put("address",addreess);
                         map.put("phone number",phone);
                         map.put("email",email);
                         map.put("status","pending");
-                        map.put("type","university");
+                        map.put("type","student");
+                        map.put("university",university);
                         db.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
                                     progressDialog.dismiss();
-                                    Intent intent=new Intent(SignUpUniversityActivity.this,StatusActivity.class);
+                                    Intent intent=new Intent(SignUpStudentActivity.this,StatusActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
                                     finish();
@@ -101,4 +103,5 @@ public class SignUpUniversityActivity extends AppCompatActivity {
             });
         }
     }
+
 }

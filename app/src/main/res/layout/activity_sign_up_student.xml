@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpUniversityActivity">
+    tools:context=".SignUpStudentActivity">
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
@@ -18,38 +18,45 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="University Name"
-                android:id="@+id/name_university_signup"/>
+                android:hint="Full Name"
+                android:id="@+id/name_student_signup"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Affiliated Number"
-                android:id="@+id/affiliated_number_signup_university"
+                android:hint="Enrollment Number"
+                android:id="@+id/enrollemnt_number_signup_student"
                 android:layout_marginTop="20dp"/>
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/university_name_student_signup"
+                android:hint="University Name"
+                />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Address"
-                android:id="@+id/address_signup_university"
+                android:id="@+id/address_signup_student"
                 android:layout_marginTop="20dp" />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Phone Number"
-                android:id="@+id/phone_number_signup_university"
+                android:id="@+id/phone_number_signup_student"
                 android:layout_marginTop="20dp"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email Address"
-                android:id="@+id/email_signup_university"
+                android:id="@+id/email_signup_student"
                 android:layout_marginTop="20dp"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:id="@+id/password_signup_university"
+                android:id="@+id/password_signup_student"
                 android:layout_marginTop="20dp"/>
             <EditText
                 android:layout_width="match_parent"
@@ -57,12 +64,12 @@
                 android:layout_marginTop="20dp"
                 android:inputType="textPassword"
                 android:hint="Retype Password"
-                android:id="@+id/retype_signup_university"/>
+                android:id="@+id/retype_signup_student"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="register"
-                android:id="@+id/register_signup_university"
+                android:id="@+id/register_signup_student"
                 android:layout_marginTop="20dp"/>
         </LinearLayout>
     </ScrollView>
