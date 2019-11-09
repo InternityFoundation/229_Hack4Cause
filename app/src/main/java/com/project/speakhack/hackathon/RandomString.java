@@ -2,6 +2,7 @@ package com.project.speakhack.hackathon;
 
 // Java program generate a random AlphaNumeric String
 // using Math.random() method
+//test comment for github commit
 
 public class RandomString {
 
