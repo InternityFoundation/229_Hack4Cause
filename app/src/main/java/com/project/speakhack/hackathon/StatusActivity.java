@@ -19,7 +19,7 @@ public class StatusActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference db;
     private TextView status_txt;
-    private Button get_started;
+    private Button get_started,home_btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +27,8 @@ public class StatusActivity extends AppCompatActivity {
         status_txt=(TextView)findViewById(R.id.status_txt);
         mAuth=FirebaseAuth.getInstance();
         get_started=(Button)findViewById(R.id.get_started);
-        //get_started.setEnabled(false);
+        home_btn=(Button)findViewById(R.id.home_btn_status);
+        get_started.setEnabled(false);
         get_started.setVisibility(View.INVISIBLE);
         db=FirebaseDatabase.getInstance().getReference();
         db.child("Users").child(mAuth.getCurrentUser().getUid().toString()).addValueEventListener(new ValueEventListener() {
@@ -38,7 +39,7 @@ public class StatusActivity extends AppCompatActivity {
                     status_txt.setText(txt);
                     if(txt.equalsIgnoreCase("approved")){
                         get_started.setVisibility(View.VISIBLE);
-                        //get_started.setEnabled(true);
+                        get_started.setEnabled(true);
                     }
                 }
             }
@@ -51,7 +52,7 @@ public class StatusActivity extends AppCompatActivity {
         get_started.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.child("Users").child(mAuth.getCurrentUser().getUid().toString()).addValueEventListener(new ValueEventListener() {
+                db.child("Users").child(mAuth.getCurrentUser().getUid().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if(dataSnapshot!=null){
@@ -70,6 +71,14 @@ public class StatusActivity extends AppCompatActivity {
 
                     }
                 });
+            }
+        });
+        home_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(StatusActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

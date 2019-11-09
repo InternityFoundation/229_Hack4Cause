@@ -11,20 +11,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".SignUpUniversityActivity" />
-        <activity android:name=".StatusActivity" />
-        <activity android:name=".WelcomeActivity">
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".SignUpUniversityActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".StatusActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".UniversityMainActivity" />
-        <activity android:name=".SignUpStudentActivity" />
-        <activity android:name=".StudentMainActivity"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".UniversityMainActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".SignUpStudentActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".StudentMainActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".StudentApprovalActivity"></activity>
     </application>
 
 </manifest>

@@ -28,5 +28,13 @@
         android:layout_below="@+id/university_main"
         android:layout_marginTop="20dp"
         android:id="@+id/student_main"/>
+    <TextView
+        android:visibility="invisible"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Activation status"
+        android:id="@+id/activation_status_txt"/>
 
 </RelativeLayout>

@@ -39,12 +39,36 @@ public class WelcomeActivity extends AppCompatActivity {
                                     finish();
                                 }
                                 else if(dataSnapshot.child("status").getValue().toString().equalsIgnoreCase("approved")){
-                                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                                    /*Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
                                     String type=dataSnapshot.child("type").getValue().toString();
-                                    intent.putExtra("type",type);
+                                    intent.putExtra("type",type+" welcome");
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
-                                    finish();
+                                    finish();*/
+                                    db.child("Universities").addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if (dataSnapshot!=null){
+                                                if (dataSnapshot.hasChild(mAuth.getCurrentUser().getUid().toString())){
+                                                    Intent intent=new Intent(WelcomeActivity.this,UniversityMainActivity.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                                else{
+                                                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity  .class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
                                 }
                             }
                         }
@@ -61,6 +85,6 @@ public class WelcomeActivity extends AppCompatActivity {
                     finish();
                 }
             }
-        },5000);
+        },2000);
     }
 }

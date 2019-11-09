@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +28,7 @@ public class SignUpUniversityActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
     private DatabaseReference db;
+    private TextView login_txt_university;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,7 @@ public class SignUpUniversityActivity extends AppCompatActivity {
         password_edt=(EditText)findViewById(R.id.password_signup_university);
         retype_edt=(EditText)findViewById(R.id.retype_signup_university);
         regsiter_btn=(Button)findViewById(R.id.register_signup_university);
+        login_txt_university=(TextView)findViewById(R.id.login_txt_university);
         mAuth=FirebaseAuth.getInstance();
         db=FirebaseDatabase.getInstance().getReference();
         progressDialog=new ProgressDialog(this);
@@ -57,6 +60,15 @@ public class SignUpUniversityActivity extends AppCompatActivity {
                 register(name,affiliatedno,addreess,phone,email,passowrd,retype);
             }
         });
+        login_txt_university.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(SignUpUniversityActivity.this,LoginActivity.class);
+                intent.putExtra("type","university");
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void register(final String name, final String affiliatedno, final String addreess, final String phone, final String email, String password, String retype) {
@@ -67,6 +79,9 @@ public class SignUpUniversityActivity extends AppCompatActivity {
             Toast.makeText(SignUpUniversityActivity.this,"Passwords does not match",Toast.LENGTH_LONG).show();
         }
         else {
+            if(mAuth.getCurrentUser()!=null){
+                mAuth.signOut();
+            }
             progressDialog.show();
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override

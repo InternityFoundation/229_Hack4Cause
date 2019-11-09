@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".SignUpStudentActivity">
     <ScrollView
+        android:id="@+id/scrollview_student"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
@@ -71,6 +72,14 @@
                 android:text="register"
                 android:id="@+id/register_signup_student"
                 android:layout_marginTop="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account? Click here to Login"
+                android:id="@+id/login_txt_student"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

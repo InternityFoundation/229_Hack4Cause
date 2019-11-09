@@ -16,7 +16,7 @@
         android:id="@+id/status_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Verification  Pending"
+        android:text=""
         android:layout_below="@+id/thankyou"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
@@ -27,5 +27,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="login and get started"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/home_btn_status"
+        android:text="Status"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

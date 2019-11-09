@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +28,7 @@ public class SignUpStudentActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
     private DatabaseReference db;
+    private TextView login_txt_student;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class SignUpStudentActivity extends AppCompatActivity {
         retype_edt=(EditText)findViewById(R.id.password_signup_student);
         regsiter_btn=(Button)findViewById(R.id.register_signup_student);
         university_edt=(EditText)findViewById(R.id.university_name_student_signup);
+        login_txt_student=(TextView)findViewById(R.id.login_txt_student);
         mAuth=FirebaseAuth.getInstance();
         db=FirebaseDatabase.getInstance().getReference();
         progressDialog=new ProgressDialog(this);
@@ -59,6 +62,15 @@ public class SignUpStudentActivity extends AppCompatActivity {
                 register(name,enrollmentno,university,addreess,phone,email,passowrd,retype);
             }
         });
+        login_txt_student.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(SignUpStudentActivity.this,LoginActivity.class);
+                intent.putExtra("type","student");
+                startActivity(intent);
+                finish();
+            }
+        });
     }
     private void register(final String name, final String enrollemntno,final String university, final String addreess, final String phone, final String email, String password, String retype) {
         if(TextUtils.isEmpty(name) || TextUtils.isEmpty(enrollemntno)||TextUtils.isEmpty(university)|| TextUtils.isEmpty(addreess)||TextUtils.isEmpty(phone)||TextUtils.isEmpty(email)||TextUtils.isEmpty(password)||TextUtils.isEmpty(retype)){
@@ -68,6 +80,9 @@ public class SignUpStudentActivity extends AppCompatActivity {
             Toast.makeText(SignUpStudentActivity.this,"Passwords does not match",Toast.LENGTH_LONG).show();
         }
         else {
+            if(mAuth.getCurrentUser()!=null){
+                mAuth.signOut();
+            }
             progressDialog.show();
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
